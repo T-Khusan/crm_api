@@ -1,3 +1,3 @@
 # CRM API
 
-Basic CRM built to learn Django and Python
+Basic CRM built to learn Django, Django Rest Framework and Python
