@@ -9,6 +9,16 @@ from clients.serializers import ClientSerializer
 class ClientListApiView(APIView):
     def get(self, request):
         clients = Client.objects.all()
-        serializer = ClientSerializer(clients, many=True)
+        serializer = ClientSerializer(instance=clients, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = ClientSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
