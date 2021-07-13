@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -6,6 +6,12 @@ from clients.models import Client
 from clients.serializers import ClientSerializer
 
 
+class ClientViewSet(viewsets.ModelViewSet):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+
+'''
 class ClientListApiView(APIView):
     def get(self, request):
         clients = Client.objects.all()
@@ -79,3 +85,4 @@ class ClientDetailApiView(APIView):
         client.delete()
 
         return Response(data={'message':'deleted'}, status=status.HTTP_204_NO_CONTENT)
+'''
