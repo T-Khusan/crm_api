@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework import serializers
 
 from .models import Client
@@ -18,3 +19,8 @@ class ClientSerializer(serializers.ModelSerializer):
             'gender',
             'profile_picture'
         )
+
+    def validate(self, data):
+        if data['birthdate'] >= timezone.now():
+            raise serializers.ValidationError({'birthdate': 'Cannot be in the future'})
+        return data
